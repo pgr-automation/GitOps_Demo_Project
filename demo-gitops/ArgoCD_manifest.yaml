@@ -1,21 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: production-myapp
+  name: myapp-uat
   namespace: argocd         # Typically, Argo CD runs in its own namespace
 spec:
   project: default          # Use an existing Argo CD project or create a new one
   source:
-    repoURL: 'https://github.com/yourorg/myapp-gitops'
-    targetRevision: HEAD    # Or a specific branch, tag, or commit hash
-    path: base              # Path to the Helm chart or configurations
+    repoURL: 'https://github.com/pgr-automation/GitOps_Demo_Project'
+    targetRevision: main    # Or a specific branch, tag, or commit hash
+    path: demo-gitops         # Path to the Helm chart or configurations
     helm:
       valueFiles:           # List of value files to use for this deployment
-        - pgr-uat/values.yaml       # Base values
-        - overlays/uat/values-production.yamll # Environment-specific values
+        - base/pgr-uat/values.yaml       # Base values
+        - overlays/uat/values-production.yaml # Environment-specific values
   destination:
     server: https://kubernetes.default.svc # Kubernetes API endpoint
-    namespace: myapp-prod    # Namespace to deploy the app in
+    namespace: myapp-uat    # Namespace to deploy the app in
   syncPolicy:
     automated:
       prune: true           # Automatically remove resources no longer in Git
