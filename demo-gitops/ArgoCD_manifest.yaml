@@ -8,11 +8,11 @@ spec:
   source:
     repoURL: 'https://github.com/pgr-automation/GitOps_Demo_Project'
     targetRevision: main    # Or a specific branch, tag, or commit hash
-    path: demo-gitops         # Path to the Helm chart or configurations
+    chart:          # Path to the Helm chart or configurations
     helm:
       valueFiles:           # List of value files to use for this deployment
-        - base/pgr-uat/values.yaml       # Base values
-        - overlays/uat/values-production.yaml # Environment-specific values
+        - values.yaml       # Base values
+        - values-production.yaml # Environment-specific values
   destination:
     server: https://kubernetes.default.svc # Kubernetes API endpoint
     namespace: myapp-uat    # Namespace to deploy the app in
